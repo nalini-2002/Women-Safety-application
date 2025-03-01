@@ -9,7 +9,7 @@
 
 *::selection {
   color: white;
-  background-color: blueviolet;
+  background-color: rgb(8, 239, 112);
 }
 
 h4,
@@ -39,10 +39,10 @@ h3 {
   background-image: linear-gradient(
     to top,
     #309d46,
-    #360765,
-    #9446e7,
-    #621dac,
-    #8400ff
+    #d0c7d8,
+    #c8b3df,
+    #dfd4eb,
+    #ceb2e8
   );
 }
 
@@ -99,7 +99,7 @@ h3 {
 /* button class */
 
 .learn-more-btn {
-  background-color: blueviolet !important;
+  background-color: rgb(43, 147, 226) !important;
   font-size: 18px !important;
   font-weight: 700 !important;
   color: whitesmoke !important;
@@ -120,7 +120,7 @@ h3 {
   font-weight: 700;
   line-height: 1.5;
   margin-bottom: 5px;
-  color: #8400ff;
+  color: #00ccff;
 }
 .brand_wrapper .brand_title {
   font-weight: 800;

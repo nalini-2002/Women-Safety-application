@@ -70,6 +70,13 @@ const Navbar = () => {
                                                 <a className="nav-link " aria-current="page">Contact Us</a>
                                             </li>
                                         </Link>
+
+                                        <Link to='/panicbutton' style={{ textDecoration: 'none' }}>
+                                            <li className="nav-item">
+                                                <a className="nav-link " aria-current="page">Panic Button  </a>
+                                            </li>
+                                        </Link>
+
                                     </ul>
 
                                     {!auth.user ? (<ul className='mt-2 text-center'>
@@ -129,6 +136,20 @@ const Navbar = () => {
                                             <a className="nav-link " aria-current="page">Report Incident</a>
                                         </li>
                                     </Link>
+
+
+                                    <Link to='/panicbutton' style={{ textDecoration: 'none' }}>
+                                        <li className="nav-item">
+                                            <a className="nav-link " aria-current="page">Panic Button  </a>
+                                        </li>
+                                    </Link>
+                                    <Link to='/safetytips' style={{ textDecoration: 'none' }}>
+                                        <li className="nav-item">
+                                            <a className="nav-link " aria-current="page">Safety Page  </a>
+                                        </li>
+                                    </Link>
+                                       {/* SafetyPage */}
+
                                 </ul>
 
                                 {!auth.user ? (<ul className='mt-2 text-center'>

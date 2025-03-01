@@ -90,7 +90,8 @@ const mapLocation = (lat,long,username,pincode,formatted_address) => `<html lang
     <center>
         <div class="abc" style="
             background-image: linear-gradient(to right top, #940915, #7c0916, #650b16, #4d0c14, #370b0f)">
-                    <img src="https://safesiren.vercel.app/static/media/logo.7f997af41092472d096a.png" style="width: 30%; margin-top: 25px; " alt="">
+
+         <h1 style="color:rgb(0, 203, 254);">Women Safety Application</h1> <br />
 
             <h1 style="color: red;">Alert</h1> <br />
             <p style="color:white;font-size: 18px;">Hey user you are recieving this mail because one of your close member added you as
@@ -180,8 +181,7 @@ const mapLocationNearby = (lat,long,username,pincode,formatted_address) => `<htm
     <center>
         <div class="abc" style="
             background-image: linear-gradient(to right top, #940915, #7c0916, #650b16, #4d0c14, #370b0f)">
-                    <img src="https://safesiren.vercel.app/static/media/logo.7f997af41092472d096a.png" style="width: 30%; margin-top: 25px; " alt="">
-
+                 
             <h1 style="color: red;">Emergency Situation In Your Area</h1> <br />
             <p style="color:white;font-size: 18px;">Hey user you are recieving this mail because Emergency triggered in your area</p>
                 <p style="color: white;"> <b>${username}</b> seems to be in danger as he/she has triggered alarm<br /><br />

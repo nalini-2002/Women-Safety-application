@@ -24,7 +24,7 @@ const Sidebar = () => {
     <div style={{ zIndex: '999' }}>
       <section className="sde">
         <div
-          className="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100"
+          className="d-flex flex-column flex-shrink-0 p-3 text-white bg-primary vh-100"
           style={{ width: 280 }}
         >
           <ul className="mt-3">
@@ -73,6 +73,15 @@ const Sidebar = () => {
                 <a href="#" className="nav-link text-white">
                   <i class="fa-solid fa-folder-closed mx-2 text-white"></i>
                   Closed Reports
+                </a>
+              </Link>
+            </li>
+
+            <li className="sideBar">
+              <Link to="/dashboard/paniclist" style={{ textDecoration: "none" }}>
+                <a href="#" className="nav-link text-white">
+                  <i class="fa-solid fa-folder-closed mx-2 text-white"></i>
+                  Panic List
                 </a>
               </Link>
             </li>

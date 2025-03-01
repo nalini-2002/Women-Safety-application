@@ -6,10 +6,10 @@
     to bottom,
     #ffffff,
     #f9f5ff,
-    #d5c2ff,
-    #ba9aff,
-    #9e63ff,
-    #8400ff
+    #6ce1f3,
+    #10ddff,
+    #01ddff,
+    #00ddff
   );
   background-size: cover;
   justify-content: center;
@@ -20,7 +20,7 @@
   font-weight: 700;
   line-height: 1.5;
   margin-bottom: 15px;
-  color: blueviolet;
+  color: rgb(43, 189, 226);
 }
 .banner_wrapper .banner-title {
   font-weight: 800;
@@ -31,7 +31,7 @@
   color: #101010;
 }
 .banner_wrapper .banner-title span {
-  color: blueviolet;
+  color: rgb(43, 211, 226);
 }
 .banner_wrapper .banner-title-text {
   font-size: 17px;
@@ -89,7 +89,7 @@
 }
 
 .shape-fill {
-  fill: #8400ff;
+  fill: #00ff15;  
   padding: 0 !important;
   margin-top: -1px !important;
 }

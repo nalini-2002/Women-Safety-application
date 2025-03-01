@@ -14,6 +14,10 @@ import CloseFile from './pages/CloseFile'
 import AboutUs2 from './pages/AboutUs2';
 import ContactUs from './Components/ContactUs';
 import ChatScreen from './pages/ChatScreen'
+import PanicButton from './pages/Panicbutton';
+import PanicApp from './pages/panic';
+import SafetyPage from './pages/safetyTips';
+import LocationTable from './pages/paniclist';
 
 function App() {
   
@@ -30,9 +34,14 @@ function App() {
       <Route path='/report' element={<Report/>} />
       <Route path='/emergency' element={<Emergency/>} />
       <Route path='/dashboard' element={<Dashboard/>} />
+      <Route path='/dashboard/paniclist' element={<LocationTable/>} />
       <Route path='/incident' element={<Incident/>} />
       <Route path='/closedreport' element={<CloseFile/>} />
-      <Route path='/chat' element={<ChatScreen/>} />
+      <Route path='/chat' element={<ChatScreen/>} />  
+      <Route path='/panicbutton' element={<PanicApp/>} />  
+      <Route path='/safetytips' element={<SafetyPage/>} />  
+      
+      {/* LocationTable */}
 
 
 

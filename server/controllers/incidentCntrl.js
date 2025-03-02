@@ -4,17 +4,10 @@ const { User } = require('../models/userModel')
 
 const fs = require('fs');
 const path = require('path')
-const AWS = require('aws-sdk');
+
 const { log } = require('console');
 require('dotenv').config();
 
-AWS.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'us-east-2'
-})
-
-const s3 = new AWS.S3();
 
 const addIncident = asyncHandler(async (req, res) => {
 

@@ -10,7 +10,9 @@ const userInfo = asyncHandler(async (req,res) => {
 });
 
 const registerUser = asyncHandler(async(req,res)=>{
-    const {uname, email, password, phone,emergencyNo, emergencyMail, pincode} = req.body;
+    const {uname, email, password, phone,emergencyNo, emergencyMail, pincode,role} = req.body;
+    console.log(role);
+    
     console.log(uname)
     if(!uname || !email || !password){
         res.status(400);
@@ -33,7 +35,8 @@ const registerUser = asyncHandler(async(req,res)=>{
         phoneNo: phone,
         emergencyMail,
         emergencyNo,
-        pinCode: pincode
+        pinCode: pincode,
+        role:role
 
     });
 

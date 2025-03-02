@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import '../../styles/auth.css'
-import { Link, useNavigate } from 'react-router-dom'
-import register from '../../images/register.png'
-import axios from 'axios'
-import toast from 'react-hot-toast';
-import { api } from '../../context/api'
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { TextField, Button, Container, Grid, Paper, Typography } from '@mui/material';
+import { toast } from 'react-hot-toast';
+import axios from 'axios';
+import { api } from '../../context/api';
+import register from '../../images/register.png';
 
 const Register = () => {
-    const navigate = useNavigate()
-    const [uname, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
-    const [emergencyNo, setEmrNumber] = useState('')
-    const [emergencyMail, setEmrEmail] = useState('')
-    const [pincode, setPincode] = useState('')
+    const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        uname: '',
+        email: '',
+        phone: '',
+        password: '',
+        emergencyNo: '',
+        emergencyMail: '',
+        pincode: ''
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
     const validateEmail = (email) => {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -23,135 +29,63 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!uname.trim()) {
-            toast.error('Name is required');
-            return false;
-        }
-        if (!email.trim()) {
-            if (!validateEmail(email)) {
-                toast.error('Invalid Email Format');
-                return false;
-            }
-            toast.error('Email is required');
-            return false;
-        }
-        if (!phone.trim()) {
-            toast.error('Phone Number is required');
-            return false;
-        }
-        if (!password.trim()) {
-            toast.error('Password is required');
-            return false;
-        }
-        if (!emergencyNo.trim()) {
-            toast.error('Emergence Number is required');
-            return false;
-        }
-        if (phone == emergencyNo) {
-            toast.error('Emergence Phone and Personal Phone must be different');
-            return false;
-        }
-        if (!emergencyMail.trim()) {
-            toast.error('Emergence Email is required');
-            return false;
-        }
-        if (email == emergencyMail) {
-            toast.error('Emergence Email and Personal Email must be different');
-            return false;
-        }
-        if (!pincode.trim()) {
-            toast.error('PinCode is required');
-            return false;
-        }
-        try {
-            console.log("gjhuijo;khgcjvh");
-            const res = await axios.post(api+'api/v1/users/register',
-                { uname, email, phone, password, emergencyNo, emergencyMail, pincode });
 
-                console.log(res);
-                
+        const { uname, email, phone, password, emergencyNo, emergencyMail, pincode } = formData;
+
+        if (!uname.trim()) return toast.error('Name is required');
+        if (!email.trim() || !validateEmail(email)) return toast.error('Valid email is required');
+        if (!phone.trim()) return toast.error('Phone Number is required');
+        if (!password.trim()) return toast.error('Password is required');
+        if (!emergencyNo.trim()) return toast.error('Emergency Number is required');
+        if (phone === emergencyNo) return toast.error('Emergency Phone and Personal Phone must be different');
+        if (!emergencyMail.trim() || !validateEmail(emergencyMail)) return toast.error('Valid emergency email is required');
+        if (email === emergencyMail) return toast.error('Emergency Email and Personal Email must be different');
+        if (!pincode.trim()) return toast.error('Pincode is required');
+
+        try {
+            const res = await axios.post(`${api}api/v1/users/register`, formData);
             if (res.status === 201) {
-                toast.success('Register Successfully')
-                navigate('/login')
-            }
-            if (res.status == 400) {
-                toast.error('Email Already Exist! Please Login')
+                toast.success('Registered Successfully');
+                navigate('/login');
+            } else {
+                toast.error(res.data.message || 'Registration failed');
             }
         } catch (err) {
-            toast.error("Error While Register");
-            console.log(err)
+            toast.error('Error while registering');
         }
-    }
+    };
 
     useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-    return (
-        <div className='my-5'>
-            <div class="container d-flex justify-content-center align-items-center ">
-                <div class="row border rounded-5 p-3 bg-white shadow box-area reverseCol">
-                    <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-                        <div class="featured-image mb-3 animateImg">
-                            <img src={register} class="img-fluid" width={500} className='mt-5' />
-                        </div>
-                    </div>
-                    <div class="col-md-6 right-box">
-                        <div class="row align-items-center">
-                            <div class="header-text mb-2">
-                                <h2>Welcome</h2>
-                                <p>We are happy to have you Here</p>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={uname} type="text" onChange={(e) => setName(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Full Name" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex  align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" class="form-control form-control-lg border-dark  fs-6" placeholder="Email Address" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex  align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input type="number" value={phone} onChange={(e) => setPhone(e.target.value)} class="form-control form-control-lg border-dark  fs-6" placeholder="Phone Number" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Password" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={emergencyNo} type="number" onChange={(e) => setEmrNumber(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Emergence Number" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={emergencyMail} type="email" onChange={(e) => setEmrEmail(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Emergence Email" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={pincode} type="number" onChange={(e) => setPincode(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Pincode" required />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center mt-4 ">
-                                <div class="form-outline flex-fill mb-0">
-                                    <button class="btn btn-lg  text-white" onClick={handleSubmit} type="button" style={{ backgroundColor: 'blueviolet', width: '100%' }} >Register</button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center my-3 ">
-                                <div class="form-outline flex-fill mb-0 " >
-                                    <Link to='/login' class="btn btn-outline-dark btn-lg btn-block" style={{ width: '100%' }} type="button">Login</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div >
-        </div >
-    )
-}
+        window.scrollTo(0, 0);
+    }, []);
 
-export default Register
+    return (
+        <Container maxWidth="md" sx={{ mt: 5 }}>
+            <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
+                <Grid container spacing={3} alignItems="center" justifyContent="center">
+                    <Grid item md={6} display="flex" justifyContent="center">
+                        <img src={register} alt="Register" width={300} />
+                    </Grid>
+                    <Grid item md={6}>
+                        <Typography variant="h4" fontWeight="bold" gutterBottom>
+                            Register
+                        </Typography>
+                        <form onSubmit={handleSubmit}>
+                            <TextField fullWidth label="Full Name" name="uname" value={formData.uname} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Email Address" name="email" value={formData.email} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Phone Number" name="phone" value={formData.phone} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Password" name="password" type="password" value={formData.password} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Emergency Number" name="emergencyNo" value={formData.emergencyNo} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Emergency Email" name="emergencyMail" value={formData.emergencyMail} onChange={handleChange} margin="normal" required />
+                            <TextField fullWidth label="Pincode" name="pincode" value={formData.pincode} onChange={handleChange} margin="normal" required />
+                            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>Register</Button>
+                        </form>
+                        <Button component={Link} to="/login" fullWidth variant="outlined" sx={{ mt: 2 }}>Login</Button>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Container>
+    );
+};
+
+export default Register;

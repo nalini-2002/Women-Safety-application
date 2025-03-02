@@ -18,6 +18,7 @@ import PanicButton from './pages/Panicbutton';
 import PanicApp from './pages/panic';
 import SafetyPage from './pages/safetyTips';
 import LocationTable from './pages/paniclist';
+import AdminRegister from './pages/Auth/AdminRegister';
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
       <Route path='/report' element={<Report/>} />
       <Route path='/emergency' element={<Emergency/>} />
       <Route path='/dashboard' element={<Dashboard/>} />
+      <Route path='/admin/register' element={<AdminRegister/>}/>
       <Route path='/dashboard/paniclist' element={<LocationTable/>} />
       <Route path='/incident' element={<Incident/>} />
       <Route path='/closedreport' element={<CloseFile/>} />

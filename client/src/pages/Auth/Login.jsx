@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react'
-import '../../styles/auth.css'
-import { Link, useNavigate } from 'react-router-dom'
-import login from '../../images/login.png'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { TextField, Button, Box, Typography, Paper, Container, Grid, InputAdornment, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useAuth } from '../../context/auth';
+import axios from 'axios';
 import toast from 'react-hot-toast';
-import { useState } from 'react'
-import { useAuth } from '../../context/auth'
-import { api } from '../../context/api'
+import { api } from '../../context/api';
+import loginImage from '../../images/login.png';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [auth, setAuth] = useAuth();
+    const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [auth, setAuth] = useAuth()
-    const navigate = useNavigate()
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const validateEmail = (email) => {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -22,91 +26,89 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (!email.trim()) {
-            if (!validateEmail(email)) {
-                toast.error('Invalid Email Format');
-                return false;
-            }
-            toast.error('Email is required');
-            return false;
+
+        if (!email.trim() || !validateEmail(email)) {
+            toast.error('Invalid Email Format');
+            return;
         }
         if (!password.trim()) {
             toast.error('Password is required');
-            return false;
+            return;
         }
+
         try {
-            
-           
-            const res = await axios.post(api+'api/v1/users/login', {
-                email, password
-            });
-
-            console.log(res);
-            
-            
-
+            const res = await axios.post(api + 'api/v1/users/login', { email, password });
             if (res.status === 200) {
-                toast.success('Login Successfully')
+                toast.success('Login Successfully');
                 setAuth({
                     ...auth,
                     user: res.data.user,
-                    token: res.data.token
-                })
-                localStorage.setItem('auth', JSON.stringify(res.data))
-                navigate('/')
+                    token: res.data.token,
+                });
+                localStorage.setItem('auth', JSON.stringify(res.data));
+                navigate('/');
             }
         } catch (err) {
-            console.log(err);
-            
             toast.error('Invalid Email or Password');
         }
-    }
+    };
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
     return (
-        <div className='marginStyle'>
-            <div class="container d-flex justify-content-center align-items-center">
-                <div class="row border rounded-5 p-3 bg-white shadow box-area reverseCol">
-                    <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-                        <div class="featured-image mb-3 animateImg">
-                            <img src={login} class="img-fluid" width={500} />
-                        </div>
-                    </div>
-                    <div class="col-md-6 right-box">
-                        <div class="row align-items-center">
-                            <div class="header-text mb-4">
-                                <h2>Welcome</h2>
-                                <p>We are happy to have you back</p>
-                            </div>
-                            <div class="input-group d-flex  align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" class="form-control form-control-lg border-dark  fs-6" placeholder="Email Address" required />
-                                </div>
-                            </div>
-                            <div class="input-group d-flex flex-row align-items-center mb-3">
-                                <div class="form-outline flex-fill mb-0">
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} class="form-control form-control-lg border-dark fs-6" placeholder="Password" required />
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center mt-4 ">
-                                <div class="form-outline flex-fill mb-0">
-                                    <button class="btn btn-lg  text-white" type="button" onClick={handleSubmit} style={{ backgroundColor: 'blueviolet', width: '100%' }} >Login</button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-row align-items-center my-3 ">
-                                <div class="form-outline flex-fill mb-0 " >
-                                    <Link to='/register' class="btn btn-outline-dark btn-lg btn-block" style={{ width: '100%' }} type="button">Register</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div >
-        </div >
-    )
-}
+        <Container maxWidth="sm">
+            <Paper elevation={10} sx={{ p: 4, borderRadius: 4, mt: 6, textAlign: 'center' }}>
+                <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+                    Welcome Back
+                </Typography>
+                <Typography variant="body1" color="textSecondary" gutterBottom>
+                    We are happy to have you back
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+                    <img src={loginImage} alt="Login" width={150} />
+                </Box>
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        fullWidth
+                        label="Email Address"
+                        variant="outlined"
+                        margin="normal"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                        fullWidth
+                        label="Password"
+                        variant="outlined"
+                        margin="normal"
+                        type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowPassword(!showPassword)}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        sx={{ mt: 3, borderRadius: 2 }}
+                    >
+                        Login
+                    </Button>
+                </form>
+                <Typography variant="body2" sx={{ mt: 2 }}>
+                    Don't have an account? <Link to="/register" style={{ textDecoration: 'none', color: 'blueviolet' }}>Register</Link>
+                </Typography>
+            </Paper>
+        </Container>
+    );
+};
 
-export default Login
+export default Login;

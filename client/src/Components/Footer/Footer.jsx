@@ -1,127 +1,60 @@
 import React from "react";
-import "../../styles/footer.css";
+import { Container, Grid, Typography, Link, Box, Divider, IconButton } from "@mui/material";
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import logo from "../../images/logo.png";
 import { useAuth } from "../../context/auth";
 
-const Footer = (props) => {
-  const [auth, setAuth] = useAuth();
+const Footer = () => {
+  const [auth] = useAuth();
 
   return (
-    <>
-      {auth?.user?.role ? (
-        <>
-          <div>
-            <section id="contact" className="footer_wrapper">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-5 footer_logo mb-4 mb-lg-0">
-                    <img decoding="async" src={logo} width={150} />
-                    {/* <h1 className='text-sm' style={{fontSize:'25px'}}>WOMEN SECURE</h1> */}
+    <Box component="footer" sx={{ bgcolor: "#1e1e1e", color: "white", py: 5 }}>
+      <Container>
+        <Grid container spacing={4} justifyContent="space-between">
+          <Grid item xs={12} sm={4}>
+            <Box display="flex" alignItems="center" gap={1}>
+              <img src={logo} alt="Logo" width={100} />
+              <Typography variant="h6">SAFE SIREN</Typography>
+            </Box>
+            <Typography variant="body2" sx={{ mt: 2, textAlign: "justify" }}>
+              At SAFE SIREN, we're dedicated to building a secure digital space for women's safety.
+              Our team is committed to providing innovative solutions to enhance security and well-being.
+            </Typography>
+          </Grid>
 
-                    <p className="footer_text" style={{ textAlign: "justify" }}>
-                      At SAFE  , we're dedicated to making Secure website
-                      for women saftey and we give our best at what we do
-                    </p>
-                  </div>
-                  <div className="col-lg-4 px-lg-5 mb-4 mb-lg-0">
-                    <h3 className="footer_title">Contact</h3>
-                    <p className="footer_text">
-                      <a>your@gmail.com</a>
-                      <br />
-                      <a className="footer-address">
-                       , <br />
-                        Maharashtra, India
-                      </a>
-                    </p>
-                  </div>
-                  <div className="col-lg-3 mb-4 mb-lg-0">
-                    <h3 className="footer_title">Social Media</h3>
-                    <p>
-                      <a
-                        href="#"
-                        className="footer_social_media_icon"
-                        style={{ color: "white" }}
-                      >
-                        <BsLinkedin size={25} />
-                      </a>
-                      <a
-                        href="https://github.com/Vignesh8205"
-                        className="footer_social_media_icon"
-                        style={{ color: "white" }}
-                      >
-                        <BsGithub size={25} />
-                      </a>
-                    </p>
-                  </div>
-                  <div className="col-12 footer_credits text-center">
-                    <span>
-                      © 2023 <a>Women Safety</a>. All Rights Reserved.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </>
-      ) : (
-        <>
-          <div>
-            <section id="contact" className="footer_wrapper">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-5 footer_logo mb-4 mb-lg-0">
-                    {/* <img decoding="async" src={logo} width={150} /> */}
-                    {/* <h1 className='text-sm' style={{fontSize:'25px'}}>WOMEN SECURE</h1> */}
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6">Quick Links</Typography>
+            <Divider sx={{ my: 1, bgcolor: "white" }} />
+            <Box display="flex" flexDirection="column" gap={1}>
+              <Link href="#" color="inherit" underline="none">Home</Link>
+              <Link href="#" color="inherit" underline="none">About Us</Link>
+              <Link href="#" color="inherit" underline="none">Services</Link>
+              <Link href="#" color="inherit" underline="none">Contact</Link>
+            </Box>
+          </Grid>
 
-                    <p className="footer_text" style={{ textAlign: "justify" }}>
-                      At ________ , we're dedicated to making Secure website
-                      for women saftey and we give our best at what we do
-                    </p>
-                  </div>
-                  <div className="col-lg-4 px-lg-5 mb-4 mb-lg-0">
-                    <h3 className="footer_title">Contact</h3>
-                    <p className="footer_text">
-                      <a>@gmail.com</a>
-                      <br />
-                      <a className="footer-address">
-                        {/* K.T Marg, Vidyavardhini's College of Engineering and
-                        Technology, <br /> */}
-                        {/* Vasai, Maharashtra, India */}
-                      </a>
-                    </p>
-                  </div>
-                  <div className="col-lg-3 mb-4 mb-lg-0">
-                    <h3 className="footer_title">Social Media</h3>
-                    <p>
-                      <a
-                        href=""
-                        className="footer_social_media_icon"
-                        style={{ color: "white" }}
-                      >
-                        <BsLinkedin size={25} />
-                      </a>
-                      <a
-                        href=""
-                        className="footer_social_media_icon"
-                        style={{ color: "white" }}
-                      >
-                        <BsGithub size={25} />
-                      </a>
-                    </p>
-                  </div>
-                  <div className="col-12 footer_credits text-center">
-                    <span>
-                      © 2023 <a>SAFE SIREN</a>™. All Rights Reserved.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </>
-      )}
-    </>
+          <Grid item xs={12} sm={4}>
+            <Typography variant="h6">Contact</Typography>
+            <Divider sx={{ my: 1, bgcolor: "white" }} />
+            <Typography variant="body2">Email: your@gmail.com</Typography>
+            <Typography variant="body2">Location: chennai, India</Typography>
+            <Box mt={2}>
+              <IconButton href="#" sx={{ color: "white" }}>
+                <BsLinkedin size={24} />
+              </IconButton>
+              <IconButton href="#" sx={{ color: "white" }}>
+                <BsGithub size={24} />
+              </IconButton>
+            </Box>
+          </Grid>
+        </Grid>
+
+        <Divider sx={{ my: 4, bgcolor: "white" }} />
+        <Typography variant="body2" align="center">
+          © 2025 . All Rights Reserved.
+        </Typography>
+      </Container>
+    </Box>
   );
 };
 

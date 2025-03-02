@@ -75,7 +75,7 @@ const ContactUs = () => {
                                     <div className="form-outline flex-fill mb-0">
                                         <button
                                             className="btn text-white btn-lg btn-block"
-                                            style={{ width: '100%', backgroundColor: 'blueviolet' }}
+                                            style={{ width: '100%', backgroundColor: ' #00ccff' }}
                                             type="submit"
                                         >
                                             Submit Mail

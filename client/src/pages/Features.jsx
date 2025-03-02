@@ -1,98 +1,62 @@
 import React from "react";
-import "../styles/features.css";
-import "../styles/features.css";
+import { Card, CardContent, Typography, Box, Grid } from "@mui/material";
+import { motion } from "framer-motion";
 import search from "../gifs/search.gif";
-import puzzle from "../gifs/puzzle.gif";
+import puzzle from "../gifs/emegency.png";
 import statis from "../gifs/statis.gif";
-import noti from "../gifs/noti.gif";
+import noti from "../gifs/location.png";
 import rock from "../gifs/rock.gif";
 import proct from "../gifs/proct.gif";
+import panic from '../gifs/panic.png'
+
+const featuresData = [
+  { title: "Emergency Mail Alert", img: search, desc: "We take your security seriously, and that's why we've implemented Mailing systems..." },
+  { title: "Emergency Service Support", img: puzzle, desc: "Get email and mobile notifications when a person is in danger..." },
+  { title: "Incident Reporting", img: statis, desc: "We take your Community seriously, and that's why we've implemented Incident reporting..." },
+  { title: "Live Location", img: noti, desc: "Using the latest technology, we provide live location tracking..." },
+  { title: "Emergency Chat", img: rock, desc: "When there is an emergency, our operators connect with government officials..." },
+  { title: "Mail Services", img: proct, desc: "Receive email alerts when your loved ones are in danger..." },
+  { title: "Panic Services", img: panic, desc: "In case of emergency, instantly send distress signals to authorities and loved ones with precise location tracking, ensuring immediate help." }
+];
 
 const Features = () => {
   return (
-    <div>
-      <section id="features" className="features_wrapper">
-        <div className="container">
-          <div className="row">
-            <div className="col-12 text-center mb-5">
-              <p className="features_subtitle">Feature-Packed Driving</p>
-              <h2 className="features_title">Our automated features</h2>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-1 text-center header-img-section">
-                <img src={search} width={150} />
-                <h3 className="mt-4">Emergency Mail Alert</h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  We take your security seriously, and that's why we've
-                  implemented Mailing systems. Your information is safeguarded
-                  with the latest encryption technology, ensuring your Safety
-                  and security.Allowing users to track loved ones!
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-2 text-center header-img-section">
-                <img src={puzzle} width={150} />
-                <h3 className="mt-4">Emergency Service support</h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  Get ready to explore every angle, every detail, and every
-                  curve of Secuity. Get email and mobile notification when
-                  person is in danger by just one tap and all SOS will be sent
-                  with locations with precise locations{" "}
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-1 text-center header-img-section">
-                <img src={statis} width={150} />
-                <h3 className="mt-4">Incident Reporting</h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  We take your Community seriously, and that's why we've
-                  implemented Incident reporting for community. Your detail and
-                  information is safeguarded with the latest encryption
-                  technology, ensuring your details to be private.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-2 text-center header-img-section">
-                <img src={noti} width={150} />
-                <h3 className="mt-4">Live location </h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  With the help of latest technology and devices available
-                  widely in market we use live location to track the victim and
-                  safeguard her form the unnecessary threats and keep them safe.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-1 text-center header-img-section">
-                <img src={rock} width={150} />
-                <h3 className="mt-4">Emergency Chat</h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  When there is emergency you need help in every way possbile
-                  our operators connected with goverment offcials will connect
-                  you and help you get of that unnecessary situation.
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-4 col-sm-6 mb-5">
-              <div className="ft-2 text-center header-img-section">
-                <img src={proct} width={150} />
-                <h3 className="mt-4">Mail services</h3>
-                <p className="features_text" style={{ textAlign: "justify" }}>
-                  Get email to explore every angle, every detail, and every
-                  curve of your the app with the mail services they prompt when
-                  your nearby ones are in danger or the loved ones are in danger.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    <Box sx={{ py: 8, px: 4, textAlign: "center", background: "#f9f9f9" }}>
+      <Typography variant="h4" fontWeight={600} gutterBottom>
+        Our Automated Features
+      </Typography>
+      <Typography variant="subtitle1" color="text.secondary" gutterBottom>
+        Feature-Packed Driving
+      </Typography>
+      <Grid container spacing={4} justifyContent="center">
+        {featuresData.map((feature, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Card sx={{ p: 2, borderRadius: 3, boxShadow: 3, textAlign: "center", transition: "0.3s", background: "#fff" }}>
+                <motion.img
+                  src={feature.img}
+                  alt={feature.title}
+                  width={120}
+                  height={120}
+                  style={{ margin: "0 auto" }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                />
+                <CardContent>
+                  <Typography variant="h6" fontWeight={600} gutterBottom>
+                    {feature.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {feature.desc}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

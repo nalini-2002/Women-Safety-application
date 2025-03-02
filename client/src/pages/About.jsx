@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import "../styles/about.css";
+import { Container, Grid, Typography, Button, Box } from "@mui/material";
+import { motion } from "framer-motion";
 import about from "../images/aboutUs.png";
 import about2 from "../images/aboutUs2.png";
-import "../styles/features.css";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 
@@ -10,64 +10,89 @@ const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div>
-      <section id="about" className="about_wrapper">
-        <div className="container">
-          <div className="features_wrapper" style={{ marginTop: "-90px" }}>
-            <div className="row">
-              <div className="col-12 text-center">
-                <p className="features_subtitle">Our Team for your safety</p>
-                <h2 className="features_title">About Us</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row align-items-center">
-            <div className="col-sm-12 col-lg-5 text-center text-lg-start">
-              <p className="about_number">1</p>
-              <h2 className="about_title">
-                Safe Siren is here for your safety
-              </h2>
-              <p className="about_text " style={{ textAlign: "justify" }}>
-                We ensure that each and every human being reaches home to safety
-                , with advance features like mail notification , mobile
-                messaging and live location sharing we are the trusted bodyguard
-                for you.
-              </p>
-              {/* <div className="my-5">
-                <a className="learn-more-btn" href="#cars">
-                  Enrole Now
-                </a>
-              </div> */}
-            </div>
-            <div className="col-sm-12 col-lg-7 text-center text-md-start">
-              <img decoding="async" src={about} className="img-fluid" />
-            </div>
-          </div>
-        </div>
-        <div className="innovate mt-5">
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-sm-12 col-lg-6 px-5 text-center text-md-start">
-                <img decoding="async" src={about2} className="img-fluid" />
-              </div>
-              <div className="col-sm-12 col-lg-6 text-center text-lg-start">
-                <p className="about_number">2</p>
-                <h2 className="about_title">The best reliable source</h2>
-                <p className="about_text" style={{ textAlign: "justify" }}>
-                  We're more than just a webapp; we're your trusted partner in
-                  reaching home safe..
-                </p>
-                <div className="mt-5">
-                  <a className="learn-more-btn btn-header" href="#brands">
-                    Contact Us
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Navbar />
+      <Box sx={{ py: 5, textAlign: "center", backgroundColor: "#f4f4f4" }}>
+        <Typography variant="h4" color="primary" gutterBottom>
+          Our Team for Your Safety
+        </Typography>
+        <Typography variant="h2" fontWeight={600}>
+          About Us
+        </Typography>
+      </Box>
+      <Container>
+        <Grid container spacing={5} alignItems="center" sx={{ mt: 3 }}>
+          <Grid item xs={12} md={5}>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <Typography variant="h3" color="secondary" gutterBottom>
+                Women Safety App is here for your safety
+              </Typography>
+              <Typography variant="body1" paragraph>
+                We ensure that every human being reaches home safely. With advanced features
+                like mail notifications, mobile messaging, and live location sharing, we are
+                your trusted bodyguard.
+              </Typography>
+              <Button variant="contained" color="primary" size="large">
+                Learn More
+              </Button>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={7}>
+            <motion.img
+              src={about}
+              alt="Women Safety App"
+              className="img-fluid"
+              width="100%"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+            />
+          </Grid>
+        </Grid>
+      </Container>
+
+      <Box sx={{ py: 5, backgroundColor: "#e3f2fd", mt: 5 }}>
+        <Container>
+          <Grid container spacing={5} alignItems="center">
+            <Grid item xs={12} md={6}>
+              <motion.img
+                src={about2}
+                alt="Reliable Source"
+                className="img-fluid"
+                width="100%"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1 }}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <Typography variant="h3" color="secondary" gutterBottom>
+                  The Best Reliable Source
+                </Typography>
+                <Typography variant="body1" paragraph>
+                  We're more than just a web app; we're your trusted partner in reaching home safely.
+                  Our innovative features provide real-time security updates to ensure you feel safe.
+                </Typography>
+                <Button variant="contained" color="secondary" size="large">
+                  Contact Us
+                </Button>
+              </motion.div>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+      <Footer />
     </div>
   );
 };

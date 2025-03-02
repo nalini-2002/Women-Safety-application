@@ -14,7 +14,7 @@ const HomeMain = () => {
             <Features />
             <Parallelx />
             <About />
-            <Footer />
+            {/* <Footer />   */}
         </>
     )
 }

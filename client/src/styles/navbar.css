@@ -1,11 +1,11 @@
 .learn-more-btn {
-  background-color: blueviolet !important;
+  background-color:  #00ccff !important;
   font-size: 18px !important;
   font-weight: 700 !important;
   color: whitesmoke !important;
   padding: 12px 29px !important;
   border-radius: 10px !important;
-  border: 2px solid blueviolet !important;
+  border: 2px solid  #00ccff !important;
   box-shadow: 0 10px 20px rgb(0 0 0 / 10%) !important;
   display: inline-block !important;
   text-decoration: none !important;
@@ -56,7 +56,7 @@
   line-height: 1;
 }
 .header_wrapper .nav-item .nav-link.active {
-  color: blueviolet;
+  color:  #00ccff;
 }
 .header-scrolled {
   position: fixed;

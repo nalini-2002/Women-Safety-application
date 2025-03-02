@@ -1,86 +1,90 @@
 import React, { useEffect } from "react";
-import "../styles/about.css";
-import about from "../images/aboutUs.png";
-import about2 from "../images/aboutUs2.png";
-import "../styles/features.css";
+import { Container, Grid, Typography, Button, Box } from "@mui/material";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
+import about from "../images/aboutUs.png";
+import about2 from "../images/aboutUs2.png";
 import { Link } from "react-router-dom";
 
 const AboutUs2 = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
-    <div>
+    <Box>
       <Navbar />
-      <section id="about" className="about_wrapper">
-        <div className="container">
-          <div className="features_wrapper" style={{ marginTop: "-90px" }}>
-            <div className="row">
-              <div className="col-12 text-center">
-                <p className="features_subtitle">Our Team for your safety</p>
-                <h2 className="features_title">About Us</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row align-items-center">
-            <div className="col-sm-12 col-lg-5 text-center text-lg-start">
-              <p className="about_number">1</p>
-              <h2 className="about_title">
-                Welcome to Safe Siren Empowering Women, Ensuring Safety
-              </h2>
-              <p className="about_text " style={{ textAlign: "justify" }}>
-                At Safe Siren, we are dedicated to creating a safer world for
-                women. Our journey began with a simple yet powerful idea - to
-                provide women with a tool that empowers them to feel secure and
-                confident in any situation. We understand the unique challenges
-                that women face, and we are committed to using technology to
-                address them head-on.
-              </p>
-              {/* <div className="my-5">
-                <Link to="/" className="learn-more-btn">
-                  Safe Siren
-                </Link>
-              </div> */}
-            </div>
-            <div className="col-sm-12 col-lg-7 text-center text-md-start">
-              <img decoding="async" src={about} className="img-fluid" />
-            </div>
-          </div>
-        </div>
-        <div className="innovate mt-5">
-          <div className="container">
-            <div className="row align-items-center">
-              <div className="col-sm-12 col-lg-6 px-5 text-center text-md-start">
-                <img decoding="async" src={about2} className="img-fluid" />
-              </div>
-              <div className="col-sm-12 col-lg-6 text-center text-lg-start">
-                <p className="about_number">2</p>
-                <h2 className="about_title">Why Safe Siren?</h2>
-                <p className="about_text" style={{ textAlign: "justify" }}>
-                  Safety in Your Hands: We put safety in your hands with a
-                  user-friendly mobile application that is designed to be your
-                  personal guardian. Whether you're walking alone at night,
-                  traveling to a new city, or just want to ensure your safety,
-                  our app is here for you.
-                  <br />
-                  Real-time Alerts: Our app offers real-time location sharing
-                  and emergency alert features, allowing you to instantly notify
-                  your trusted contacts and authorities in case of an emergency.
-                </p>
-                <div className="mt-5">
-                  <Link to="/contact" className="learn-more-btn btn-header">
-                    Contact Us
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Box sx={{ backgroundColor: "#f5f5f5", py: 5 }}>
+        <Container>
+          <Box textAlign="center" mb={5}>
+            <Typography variant="h5" color="primary" gutterBottom>
+              Our Team for Your Safety
+            </Typography>
+            <Typography variant="h3" fontWeight={700}>
+              About Us
+            </Typography>
+          </Box>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={5} textAlign={{ xs: "center", md: "left" }}>
+              <Typography variant="h4" color="secondary" gutterBottom>
+                Welcome to Women Safety App
+              </Typography>
+              <Typography variant="body1" textAlign="justify" paragraph>
+                At Women Safety App, we are committed to ensuring a safer world
+                for women. Our journey began with a mission to empower women
+                with a tool that enhances their safety and confidence in any
+                situation. Understanding the unique challenges women face, we
+                leverage technology to address them effectively.
+              </Typography>
+              <Typography variant="body1" textAlign="justify">
+                Our app integrates advanced security features like real-time
+                tracking, emergency alerts, and AI-based threat detection,
+                ensuring instant support and peace of mind.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={7} textAlign="center">
+              <img src={about} alt="About Us" style={{ width: "100%", borderRadius: 8 }} />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+      <Box sx={{ py: 5 }}>
+        <Container>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={6} textAlign="center">
+              <img src={about2} alt="Why Us" style={{ width: "100%", borderRadius: 8 }} />
+            </Grid>
+            <Grid item xs={12} md={6} textAlign={{ xs: "center", md: "left" }}>
+              <Typography variant="h4" color="secondary" gutterBottom>
+                Why Women Safety App?
+              </Typography>
+              <Typography variant="body1" textAlign="justify" paragraph>
+                Our application prioritizes your safety with features such as
+                emergency SOS alerts, trusted contact notifications, and live
+                tracking. Whether you’re commuting alone, exploring new places,
+                or simply ensuring safety, our app is designed to assist you at
+                every step.
+              </Typography>
+              <Typography variant="body1" textAlign="justify" paragraph>
+                Our mission is to empower individuals by providing a
+                user-friendly interface with real-time alert systems, ensuring
+                instant response from authorities and loved ones when needed.
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/contact"
+                sx={{ mt: 3 }}
+              >
+                Contact Us
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
       <Footer />
-    </div>
+    </Box>
   );
 };
 

@@ -17,6 +17,8 @@ const Emergency = () => {
   const [lat, setLat] = useState("");
   const [auth, setAuth] = useAuth();
 
+
+
   const handleSubmit = async (e) => {
     try {
       console.log(lat);
@@ -28,7 +30,7 @@ const Emergency = () => {
       };
       console.log(payload);
       const res = await fetch(
-        api+"api/v1/emergency/emergencypressed",
+        api + "api/v1/emergency/emergencypressed",
         {
           method: "POST",
           body: JSON.stringify(payload),
@@ -90,8 +92,16 @@ const Emergency = () => {
                     class="button-30 text-center"
                     onClick={handleSubmit}
                     role="button"
+                    style={{
+                      boxShadow:"0px 0px 10px blue"
+                       }}
+
                   >
-                    <PiSirenBold size={200} className="text-white" />
+                    <PiSirenBold size={200} style={{
+                   boxShadow:"0px 0px 20px yellow",
+                   borderRadius:"50%",
+                   padding:"20px"
+                    }} className="text-white" />
                   </button>
                 </center>
               </div>

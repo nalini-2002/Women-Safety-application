@@ -1,41 +1,63 @@
-.learn-more-btn {
-  background-color:  #00ccff !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  color: whitesmoke !important;
-  padding: 12px 29px !important;
-  border-radius: 10px !important;
-  border: 2px solid  #00ccff !important;
-  box-shadow: 0 10px 20px rgb(0 0 0 / 10%) !important;
-  display: inline-block !important;
-  text-decoration: none !important;
-  transition: 0.7s !important;
-}
-
+/* Base Button Styles */
+.learn-more-btn,
 .learn-more-btn-logout {
-  background-color: #d11a2a !important;
   font-size: 18px !important;
   font-weight: 700 !important;
   color: whitesmoke !important;
-  padding: 12px 29px !important;
-  border-radius: 10px !important;
-  border: 2px solid #d11a2a !important;
-  box-shadow: 0 10px 20px rgb(0 0 0 / 10%) !important;
+  padding: 12px 30px !important;
+  border-radius: 12px !important;
+  border: 2px solid transparent !important;
   display: inline-block !important;
   text-decoration: none !important;
-  transition: 0.7s !important;
+  transition: all 0.4s ease-in-out !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
+/* Primary Button - Dashboard/Profile */
+.learn-more-btn {
+  background: linear-gradient(135deg, #00c6ff, #0072ff) !important;
+  box-shadow: 0 10px 25px rgba(0, 114, 255, 0.4) !important;
+}
+
+.learn-more-btn:hover {
+  color: #fff !important;
+  transform: scale(1.07);
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.7) !important;
+}
+
+/* Logout Button */
+.learn-more-btn-logout {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c) !important;
+  border: none !important;
+  box-shadow: 0 10px 25px rgba(255, 65, 108, 0.4) !important;
+}
+
+.learn-more-btn-logout:hover {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b) !important;
+  transform: scale(1.07);
+  box-shadow: 0 0 20px rgba(255, 65, 108, 0.7) !important;
+}
+
+/* Outline Button Variant */
 .btn-extra-header {
   color: grey !important;
-  background-color: transparent !important;
+  background: transparent !important;
   border: 2px solid grey !important;
+  transition: all 0.3s ease-in-out;
 }
 
+.btn-extra-header:hover {
+  background-color: grey !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Navbar */
 .header_wrapper .navbar {
-  -webkit-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
+  transition: all 0.3s ease;
+  padding: 15px 0;
 }
 .header_wrapper .navbar-brand img {
   max-width: 210px;
@@ -47,38 +69,64 @@
   justify-content: center;
 }
 .header_wrapper .nav-item {
-  margin: 0 10px;
+  margin: 0 12px;
 }
 .header_wrapper .nav-item .nav-link {
   font-weight: bold;
   font-size: 18px;
-  color: grey;
-  line-height: 1;
+  color: #333;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.header_wrapper .nav-item .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background-color: #00aaff;
+  transition: 0.4s ease;
+  transform: translateX(-50%);
+}
+
+.header_wrapper .nav-item .nav-link:hover::after {
+  width: 100%;
+}
+.header_wrapper .nav-item .nav-link:hover {
+  color: #ff3300;
+  transform: scale(1.05);
 }
 .header_wrapper .nav-item .nav-link.active {
-  color:  #00ccff;
+  color: #00ccff;
 }
+
+/* Sticky Navbar */
 .header-scrolled {
   position: fixed;
-  margin-top: 0;
   top: 0;
-  left: 0;
   width: 100%;
   height: 85px;
   background: white !important;
-  -webkit-box-shadow: 0 4px 6px 0 rgba(12, 0, 46, 0.05);
-  box-shadow: 0 4px 6px 0 rgba(12, 0, 46, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 999;
 }
+
 .header-scrolled .navbar-brand img {
   width: 190px;
   height: auto;
   animation: animated 0.3s ease-in-out;
 }
-
-nav {
-  background-color: white;
+.header-scrolled .nav-item .nav-link {
+  font-size: 17px;
 }
 
+nav{
+  background-color: #fff;
+}
+
+/* Animation for Logo */
 @keyframes animated {
   0% {
     width: 210px;
@@ -90,10 +138,8 @@ nav {
     width: 190px;
   }
 }
-.header-scrolled .nav-item .nav-link {
-  font-size: 17px;
-}
 
+/* Responsive Tweaks */
 @media (max-width: 1300px) {
   .header_wrapper .menu-navbar-nav {
     width: auto;
@@ -104,8 +150,8 @@ nav {
   .header_wrapper .nav-item {
     margin: 0 5px;
   }
-  .header_wrapper .learn-more-btn {
-    padding: 12px 10px !important;
+  .learn-more-btn {
+    padding: 12px 18px !important;
   }
 }
 
@@ -117,29 +163,22 @@ nav {
 
 @media (max-width: 991px) {
   .header_wrapper .navbar-brand img {
-    width: 180px;
-  }
-  .header_wrapper .navbar-toggler:focus {
-    box-shadow: none !important;
+    width: 170px;
   }
   .header_wrapper .menu-navbar-nav {
     text-align: center;
+    flex-direction: column;
   }
   .header_wrapper .nav-item .nav-link {
-    margin-top: 15px;
+    margin: 15px 0;
     font-size: 18px;
   }
-  .header_wrapper .nav-item:last-child .nav-link {
-    margin-bottom: 20px;
-  }
-  .header_wrapper .learn-more-btn {
-    padding: 12px 29px !important;
-  }
-  .header_wrapper .navbar-collapse {
-    background: var(--bg-white);
+  .learn-more-btn {
+    padding: 12px 25px !important;
   }
 }
 
+/* Navbar toggler styles */
 .navbar-toggler,
 .navbar-toggler:focus,
 .navbar-toggler:active,

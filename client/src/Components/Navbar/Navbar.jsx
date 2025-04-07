@@ -192,7 +192,7 @@ const Navbar = () => {
                                     >
                                        
                                     <Link to={`/SafetyTimer`} style={{ textDecoration: 'none' }} className="nav-item text-center">
-                                        <a className="nav-link learn-more-btn" aria-current="page"> Safety Timer</a>
+                                        <a className="nav-link learn-more-btn-1" aria-current="page"> Safety Timer</a>
                                     </Link>
                                     </motion.div>
 

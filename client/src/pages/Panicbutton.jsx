@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const PanicButton = () => {
   const [location, setLocation] = useState(null);
@@ -106,7 +107,22 @@ const PanicButton = () => {
         playsInline
         style={{ width: "300px", display: isRecording ? "block" : "none" }}
       />
-      <button
+
+
+<motion.div
+      animate={{
+        scale: [1, 1.2, 1],
+      }}
+      transition={{
+        duration: 0.8,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+      style={{
+        display: "inline-block",
+      }}
+    >
+           <button
   onClick={handlePanicClick}
   disabled={isRecording}
   style={{
@@ -128,6 +144,8 @@ const PanicButton = () => {
 >
   {isRecording ? "🎥 Recording..." : "🚨 Send Panic Alert"}
 </button>
+    </motion.div>
+
 
 
     </div>

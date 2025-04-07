@@ -6,6 +6,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import toast from 'react-hot-toast'
 import '../../styles/navbar.css'
 import { useAuth } from '../../context/auth'
+import { motion } from "framer-motion";
 
 const Navbar = () => {
 
@@ -105,7 +106,7 @@ const Navbar = () => {
                             </div>
                         </nav>
 
-                        
+
 
 
                     </header>
@@ -158,6 +159,9 @@ const Navbar = () => {
                                             <a className="nav-link " aria-current="page">Safety Page  </a>
                                         </li>
                                     </Link>
+
+
+
                                     {/* SafetyPage */}
 
                                 </ul>
@@ -173,9 +177,29 @@ const Navbar = () => {
                                     <Link to={`/dashboard/${auth?.user?.role === 1 ? "/" : "profile"}`} style={{ textDecoration: 'none' }} className="nav-item text-center">
                                         <a className="nav-link learn-more-btn" aria-current="page">Profile</a>
                                     </Link>
+                                    <motion.div
+                                        animate={{
+                                            scale: [1, 1.2, 1],
+                                        }}
+                                        transition={{
+                                            duration: 0.8,
+                                            repeat: Infinity,
+                                            ease: "easeInOut",
+                                        }}
+                                        style={{
+                                            display: "inline-block",
+                                        }}
+                                    >
+                                       
+                                    <Link to={`/SafetyTimer`} style={{ textDecoration: 'none' }} className="nav-item text-center">
+                                        <a className="nav-link learn-more-btn" aria-current="page"> Safety Timer</a>
+                                    </Link>
+                                    </motion.div>
+
                                     <Link onClick={handleSubmit} to='/login' style={{ textDecoration: 'none' }} className="nav-item text-center">
                                         <a className="nav-link learn-more-btn-logout" aria-current="page">Logout</a>
                                     </Link>
+
                                 </ul>)
                                 }
                             </div>
@@ -185,9 +209,9 @@ const Navbar = () => {
             </>)}
 
 
-<br />
-<br /><br /><br />
-<br />
+            <br />
+            <br /><br /><br />
+            <br />
 
 
         </>

@@ -3,22 +3,59 @@ import { Container, Grid, Typography, Link, Box, Divider, IconButton } from "@mu
 import { BsLinkedin, BsGithub } from "react-icons/bs";
 import logo from "../../images/logo.png";
 import { useAuth } from "../../context/auth";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const [auth] = useAuth();
 
-  const user=JSON.parse(localStorage.getItem("auth")).user
+  const user = JSON.parse(localStorage.getItem("auth")).user
   console.log(user);
-  
+
 
   return (
     <Box component="footer" sx={{ bgcolor: "#1e1e1e", color: "white", py: 5 }}>
       <Container>
         <div className="floating-contact-buttons">
-       <h3 style={{fontSize:"20px",color:"rebeccapurple"}}>   Emergency Contact</h3>
-          <a href={`tel:+91${user?.phoneNo}`} className="contact-btn call-btn">📞 Call Us</a>
-          <a href={`https://wa.me/${user?.phoneNo}`} target="_blank" rel="noopener noreferrer" className="contact-btn whatsapp-btn">💬 WhatsApp</a>
+          <h3 style={{ fontSize: "20px", color: "rebeccapurple" }}>   Emergency Contact</h3>
+
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 0.8,
+              repeat: Infinity,
+              ease: "circInOut",
+            }}
+            style={{
+              display: "inline-block",
+            }}
+          >
+
+            <a href={`tel:+91${user?.phoneNo}`} className="contact-btn call-btn">📞 Call Us</a>
+          </motion.div>
+
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 0.9,
+              repeat: Infinity,
+              ease: "anticipate",
+            }}
+            style={{
+              display: "inline-block",
+            }}
+          >
+
+            <a href={`https://wa.me/${user?.phoneNo}`} target="_blank" rel="noopener noreferrer" className="contact-btn whatsapp-btn">💬 WhatsApp</a>
+          </motion.div>
         </div>
+
+
+
+
         <Grid container spacing={4} justifyContent="space-between">
           <Grid item xs={12} sm={4}>
             <Box display="flex" alignItems="center" gap={1}>

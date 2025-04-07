@@ -2,24 +2,38 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../Components/Dash/Sidebar";
 import toast from "react-hot-toast";
 import { api } from "../context/api";
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Modal,
+} from "@mui/material";
 
 const Dashboard = () => {
   const [incidentreport, setIncidentReport] = useState([]);
   const [report, setReport] = useState("");
   const [ack, setAck] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = (rpt) => {
+    setReport(rpt);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   const getAllIncident = async () => {
-    console.log("Fetching Incidents");
-    
     try {
-      const res = await fetch(api+'api/v1/incidents', {
+      const res = await fetch(api + "api/v1/incidents", {
         method: "GET",
         headers: { "Content-type": "application/json" },
       });
-
-      console.log(res);
-      
-
       if (res.status === 200) {
         const data = await res.json();
         setIncidentReport(data);
@@ -31,16 +45,10 @@ const Dashboard = () => {
 
   const acknowledge = async (incId) => {
     try {
-     
       const res = await fetch(`${api}api/v1/incidents/${incId}`, {
         method: "PATCH",
         headers: { "Content-type": "application/json" },
       });
-
-    console.log(res);
-    
-      
-
       if (res.status === 200) {
         toast.success("Updated Successfully");
       }
@@ -57,87 +65,99 @@ const Dashboard = () => {
   }, [ack]);
 
   return (
-    <div className="d-flex justify-content-start">
+    <Box display="flex">
       <Sidebar />
-      <div className="container table-responsive mx-3">
-        <div className="features_wrapper" style={{ marginTop: '-50px' }}>
-          <div className="row">
-            <div className="col-12 text-center">
-              <p className="features_subtitle">Latest Women Incident Reported!</p>
-              <h2 className="features_title">Women Incident Data</h2>
-            </div>
-          </div>
-        </div>
-        <table className="table table-striped table-bordered table-hover" style={{ marginTop: '-50px' }}>
-          <thead className="table-dark text-center">
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Report</th>
-              <th scope="col">Address</th>
-              <th scope="col">Pincode</th>
-              <th scope="col">Incident recorded Date & Time</th>
-              <th scope="col">Acknowledgement Status</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            {incidentreport.map((p, index) => (
-              <tr key={index}>
-                <th scope="row" style={{ color: p.isSeen ? "green" : "red" }}>
-                  {p.uname} {p.isSeen && "Hello"}
-                </th>
-                <td>
-                  {p.isSeen ? (
-                    p.report
-                  ) : (
-                    <button
-                      type="button"
-                      className="btn btn-dark"
-                      onClick={() => setReport(p.report)}
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
-                      View Report
-                    </button>
-                  )}
-                </td>
-                <td>{p.address}</td>
-                <td>{p.pincode}</td>
-                <td>
-                  {p.createdAt.split('T')[0]} - {p.createdAt.split('T')[1].split('.')[0]}
-                </td>
-                <td>
-                  {p.isSeen ? (
-                    <button className="btn btn-success">Acknowledged</button>
-                  ) : (
-                    <button className="btn btn-danger" onClick={() => acknowledge(p._id)}>
-                      Acknowledge
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Box p={3} flex={1}>
+        <Box textAlign="center" mb={4}>
+          <Typography variant="h6" color="textSecondary">
+            Latest Women Incident Reported!
+          </Typography>
+          <Typography variant="h4" fontWeight="bold">
+            Women Incident Data
+          </Typography>
+        </Box>
 
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Incident Report</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">{report}</div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell align="center"><b>Name</b></TableCell>
+                <TableCell align="center"><b>Report</b></TableCell>
+                <TableCell align="center"><b>Address</b></TableCell>
+                <TableCell align="center"><b>Pincode</b></TableCell>
+                <TableCell align="center"><b>Date & Time</b></TableCell>
+                <TableCell align="center"><b>Acknowledgement</b></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {incidentreport.map((p, index) => (
+                <TableRow key={index}>
+                  <TableCell align="center" sx={{ color: p.isSeen ? "green" : "red" }}>
+                    {p.uname} {p.isSeen && "✓"}
+                  </TableCell>
+                  <TableCell align="center">
+                    {p.isSeen ? (
+                      p.report
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleOpen(p.report)}
+                      >
+                        View Report
+                      </Button>
+                    )}
+                  </TableCell>
+                  <TableCell align="center">{p.address}</TableCell>
+                  <TableCell align="center">{p.pincode}</TableCell>
+                  <TableCell align="center">
+                    {p.createdAt.split("T")[0]} - {p.createdAt.split("T")[1].split(".")[0]}
+                  </TableCell>
+                  <TableCell align="center">
+                    {p.isSeen ? (
+                      <Button variant="contained" color="success" disabled>
+                        Acknowledged
+                      </Button>
+                    ) : (
+                      <Button variant="contained" color="error" onClick={() => acknowledge(p._id)}>
+                        Acknowledge
+                      </Button>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        {/* MUI Modal */}
+        <Modal open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 400,
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography variant="h6" mb={2}>
+              Incident Report
+            </Typography>
+            <Typography variant="body1">{report}</Typography>
+            <Box mt={3} textAlign="right">
+              <Button onClick={handleClose} variant="outlined">
                 Close
-              </button>
-              <button type="button" className="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+      </Box>
+    </Box>
   );
 };
 

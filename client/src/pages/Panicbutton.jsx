@@ -107,18 +107,29 @@ const PanicButton = () => {
         style={{ width: "300px", display: isRecording ? "block" : "none" }}
       />
       <button
-        onClick={handlePanicClick}
-        disabled={isRecording}
-        style={{
-          padding: "10px",
-          fontSize: "18px",
-          backgroundColor: isRecording ? "gray" : "red",
-          color: "white",
-          cursor: isRecording ? "not-allowed" : "pointer",
-        }}
-      >
-        {isRecording ? "🎥 Recording..." : "🚨 Send Panic Alert"}
-      </button>
+  onClick={handlePanicClick}
+  disabled={isRecording}
+  style={{
+    padding: "25px 60px",
+    fontSize: "28px",
+    fontWeight: "bold",
+    backgroundColor: isRecording ? "gray" : "#ff0000",
+    color: "white",
+    border: "none",
+    borderRadius: "20px",
+    boxShadow: isRecording
+      ? "0 0 10px rgba(128,128,128,0.6)"
+      : "0 0 20px 5px rgba(255, 0, 0, 0.7)",
+    cursor: isRecording ? "not-allowed" : "pointer",
+    animation: isRecording ? "none" : "pulse 1.2s infinite",
+    transition: "all 0.3s ease",
+    marginTop: "30px",
+  }}
+>
+  {isRecording ? "🎥 Recording..." : "🚨 Send Panic Alert"}
+</button>
+
+
     </div>
   );
 };

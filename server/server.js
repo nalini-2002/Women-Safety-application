@@ -9,7 +9,9 @@ const chatRoutes = require('./routes/chatRoutes')
 const mongoose = require("mongoose");
 const multer = require("multer");
 const fs = require("fs");
+const { Server } = require("socket.io");
 require("dotenv").config();
+const http = require("http");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -28,6 +30,26 @@ const start = async () => {
     console.log(err);
   }
 };
+
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected");
+
+  socket.on("chatMessage", (msg) => {
+    io.emit("chatMessage", msg); // broadcast
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 
 
 const EmergencySchema = new mongoose.Schema({
@@ -89,6 +111,7 @@ app.post("/api/emergency-alert", async (req, res) => {
 
 
 
+
 // Emergency Alert API
 app.get("/api/panclist", async (req, res) => {
     
@@ -117,6 +140,8 @@ app.delete("/api/panclist/:id", async (req, res) => {
 })
 ;
 
+const emergencyRoute = require('./routes/safty');
+app.use('/api', emergencyRoute);
 
 app.use("/uploads", express.static("uploads"));
 

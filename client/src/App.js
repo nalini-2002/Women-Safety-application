@@ -19,6 +19,9 @@ import PanicApp from './pages/panic';
 import SafetyPage from './pages/safetyTips';
 import LocationTable from './pages/paniclist';
 import AdminRegister from './pages/Auth/AdminRegister';
+import SafetyTimer from './pages/safetytimer/safetytimer';
+import SaftyAdminPanel from './pages/saftydashadmin/saftydash';
+
 
 function App() {
   
@@ -41,7 +44,12 @@ function App() {
       <Route path='/closedreport' element={<CloseFile/>} />
       <Route path='/chat' element={<ChatScreen/>} />  
       <Route path='/panicbutton' element={<PanicApp/>} />  
-      <Route path='/safetytips' element={<SafetyPage/>} />  
+      <Route path='/safetytips' element={<SafetyPage/>} /> 
+      <Route path='/SafetyTimer' element={<SafetyTimer/>} /> 
+      <Route path='/SaftyAdminPanel' element={<SaftyAdminPanel/>} /> 
+      
+    
+      
       
       {/* LocationTable */}
 

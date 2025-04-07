@@ -3,6 +3,7 @@ import { Container, Typography, Card, CardContent, Button, Box } from "@mui/mate
 import { Warning as WarningIcon, LocationOn as LocationIcon, VideoCameraFront as VideoIcon } from "@mui/icons-material";
 import PanicButton from "./Panicbutton";
 import Navbar from "../Components/Navbar/Navbar";
+import Footer from "../Components/Footer/Footer";
 // import PanicButton from "./PanicButton.jsx";
 
 function PanicApp() {
@@ -50,6 +51,8 @@ function PanicApp() {
          Stay alert and use this feature responsibly! 🚔🆘
       </Box>
     </Container>
+
+    <Footer/>
    </>
   );
 }

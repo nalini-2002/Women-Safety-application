@@ -86,6 +86,15 @@ const Sidebar = () => {
               </Link>
             </li>
 
+            <li className="sideBar">
+              <Link to="/SaftyAdminPanel" style={{ textDecoration: "none" }}>
+                <a href="#" className="nav-link text-white">
+                  <i class="fa-solid fa-folder-closed mx-2 text-white"></i>
+                  Safty Admin Panel
+                </a>
+              </Link>
+            </li>
+
           </ul>
           <hr />
           <div className="dropdown">

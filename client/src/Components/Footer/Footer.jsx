@@ -7,9 +7,18 @@ import { useAuth } from "../../context/auth";
 const Footer = () => {
   const [auth] = useAuth();
 
+  const user=JSON.parse(localStorage.getItem("auth")).user
+  console.log(user);
+  
+
   return (
     <Box component="footer" sx={{ bgcolor: "#1e1e1e", color: "white", py: 5 }}>
       <Container>
+        <div className="floating-contact-buttons">
+       <h3 style={{fontSize:"20px",color:"rebeccapurple"}}>   Emergency Contact</h3>
+          <a href={`tel:+91${user?.phoneNo}`} className="contact-btn call-btn">📞 Call Us</a>
+          <a href={`https://wa.me/${user?.phoneNo}`} target="_blank" rel="noopener noreferrer" className="contact-btn whatsapp-btn">💬 WhatsApp</a>
+        </div>
         <Grid container spacing={4} justifyContent="space-between">
           <Grid item xs={12} sm={4}>
             <Box display="flex" alignItems="center" gap={1}>

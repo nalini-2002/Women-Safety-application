@@ -55,6 +55,8 @@ const Navbar = () => {
                                 </button>
                                 <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                                     <ul className="navbar-nav menu-navbar-nav">
+
+
                                         <Link to='/' style={{ textDecoration: 'none' }}>
                                             <li className="nav-item">
                                                 <a className="nav-link " aria-current="page">Home</a>
@@ -77,9 +79,13 @@ const Navbar = () => {
                                             </li>
                                         </Link>
 
+
+
                                     </ul>
 
                                     {!auth.user ? (<ul className='mt-2 text-center'>
+
+
                                         <Link to='/login' style={{ textDecoration: 'none' }} className="nav-item text-center">
                                             <a className="nav-link learn-more-btn btn-extra-header" aria-current="page">Login</a>
                                         </Link>
@@ -98,6 +104,10 @@ const Navbar = () => {
                                 </div>
                             </div>
                         </nav>
+
+                        
+
+
                     </header>
                 </>
             ) : (<>
@@ -148,7 +158,7 @@ const Navbar = () => {
                                             <a className="nav-link " aria-current="page">Safety Page  </a>
                                         </li>
                                     </Link>
-                                       {/* SafetyPage */}
+                                    {/* SafetyPage */}
 
                                 </ul>
 
@@ -173,6 +183,13 @@ const Navbar = () => {
                     </nav>
                 </header>
             </>)}
+
+
+<br />
+<br /><br /><br />
+<br />
+
+
         </>
     )
 }

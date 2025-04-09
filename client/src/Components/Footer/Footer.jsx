@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const Footer = () => {
   const [auth] = useAuth();
 
-  const user = JSON.parse(localStorage.getItem("auth")).user
+  const user = JSON.parse(localStorage.getItem("auth"))?.user
   console.log(user);
 
 

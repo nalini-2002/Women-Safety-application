@@ -37,6 +37,12 @@ const Emergency = () => {
           headers: { "Content-type": "application/json" },
         }
       );
+
+      const da=await res.json()
+
+      console.log(da);
+      
+
       if (res.status === 200) {
         toast.success("SOS SENT SUCCESSFULLY");
       } else {

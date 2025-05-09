@@ -8,64 +8,60 @@ let pincode;
 let formattedAddress;
 
 
-const getData = async(url) => {
-
-  try{
-    
-    let {data} = await axios.get(url)
-    
-    return data
-  }catch(e){
-    console.log(e.message);
+const getData = async (url) => {
+  try {
+    const { data } = await axios.get(url);
+    return data;
+  } catch (e) {
+    console.error("Reverse Geocoding Failed:", e.message);
+    return null;
   }
-}
+};
 
 const sendemergencyCntrl = asyncHandler(async (req, res) => {
-  
-  const {userId, lat, long} = req.body;
-  if(!lat || !long){
-    res.status(403).json({message: "latitude or longitude is missing"})
+  const { userId, lat, long } = req.body;
+  console.log(req.body);
+
+  if (!lat || !long) {
+    return res.status(403).json({ message: "Latitude or longitude is missing" });
   }
-  const resp = await getData(`https://apis.mapmyindia.com/advancedmaps/v1/efd1bc9e76b7a36cb990af517a48f3c3/rev_geocode?lat=${lat}&lng=${long}`)
-  pincode = resp.results[0].pincode;
-  formattedAddress = resp.results[0].formatted_address;
-  const  user = await User.findById(userId);
+
+  const reverseGeoUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}`;
+  const resp = await getData(reverseGeoUrl);
+  
+  if (!resp || !resp.address) {
+    return res.status(500).json({ message: "Failed to retrieve location details" });
+  }
+
+  const pincode = resp.address.postcode || "Unknown";
+  const formattedAddress = resp.display_name || "Unknown Location";
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
   const recipients = [user.emergencyMail];
-  recipients.push()
-  if(!user){
-    res.status(404).json({message: "User not found"})
-  }
-  
-  if(user.extraEmail1){
-    recipients.push(user.extraEmail1)
-  }else if(user.extraEmail2){
-    recipients.push(user.extraEmail2)
-  }
+  if (user.extraEmail1) recipients.push(user.extraEmail1);
+  if (user.extraEmail2) recipients.push(user.extraEmail2);
 
-  await sendHelpEmail(recipients, lat, long , user.uname, pincode,formattedAddress);
-  const nearby =[]
-  const users = await User.find({pinCode: pincode});
-  if(users){
-    for(const x of users){
-      nearby.push(x.email);
-    }
+  await sendHelpEmail(recipients, lat, long, user.uname, pincode, formattedAddress);
+
+  const nearby = [];
+  const users = await User.find({ pinCode: pincode });
+  if (users) {
+    users.forEach(x => nearby.push(x.email));
   }
 
-  await sendHelpEmailContacts(nearby, lat, long , user.uname, pincode,formattedAddress)
+  await sendHelpEmailContacts(nearby, lat, long, user.uname, pincode, formattedAddress);
 
-  
-
-  const emergency = await Emergency.create({
+  await Emergency.create({
     user: userId,
-    emergencyLctOnMap: `https://maps.google.com/maps?q=${lat},${long}&hl=en&z=14&amp`,
+    emergencyLctOnMap: `https://maps.google.com/maps?q=${lat},${long}&hl=en&z=14`,
     addressOfIncd: formattedAddress
-  })
-  
+  });
 
-  res.status(200).json({message: "Sent an SOS for help"})
-
-  
-
+  res.status(200).json({ message: "Sent an SOS for help" });
 });
 
 

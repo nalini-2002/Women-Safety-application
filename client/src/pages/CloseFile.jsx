@@ -1,40 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Sidebar from "../Components/Dash/Sidebar";
+import {
+  Box,
+  Container,
+  Typography,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  Paper,
+  TableContainer,
+  Link,
+} from "@mui/material";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
+  const [paniclist, setpaniclist] = useState([]);
+
+  useEffect(() => {
+    const fetchpaniclist = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:8000/api/v1/emergency");
+        const resolved = data.filter((item) => item.isResolved === true);
+        setpaniclist(resolved);
+      } catch (error) {
+        console.error("Error fetching emergency data:", error);
+      }
+    };
+    fetchpaniclist();
+  }, []);
+
   return (
-    <div className="d-flex justify-content-start">
+    <Box sx={{ display: "flex", bgcolor: "#f7f9fc", minHeight: "100vh" }}>
       <Sidebar />
-      <div className="container table-responsive mx-3">
-        <div className='features_wrapper' style={{ marginTop: '-50px' }}>
-          <div className="row">
-            <div className="col-12 text-center">
-              <p className="features_subtitle">Latest Women Closed Alert !</p>
-              <h2 className="features_title">Women Closed Data</h2>
-            </div>
-          </div>
-        </div>
-        <table class="table table-striped table-bordered table-hover" style={{ marginTop: '-50px' }}>
-          <thead className="table-dark text-center">
-            <tr >
-              <th scope="col">Name</th>
-              <th scope="col">Report</th>
-              <th scope="col">Address</th>
-              <th scope="col">Pincode</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">
-            <tr >
-              <th scope="row">Fname</th>
-              <td>Report</td>
-              <td>address</td>
-              <td>pincode</td>
-            </tr>
+      <Container maxWidth="lg" sx={{ mt: 10 }}>
+        <Box textAlign="center" mb={4}>
+          <Typography variant="subtitle1" color="text.secondary">
+            Latest Women Closed Alert!
+          </Typography>
+          <Typography variant="h4" fontWeight="bold" gutterBottom>
+            Women Closed Data
+          </Typography>
+        </Box>
 
-          </tbody>
-        </table>
-      </div>
-    </div >
+        <TableContainer component={Paper} elevation={3}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ bgcolor: "#1976d2" }}>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }} align="center">Name</TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }} align="center">Report</TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }} align="center">Address</TableCell>
+                <TableCell sx={{ color: "#fff", fontWeight: "bold" }} align="center">Pincode</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paniclist.length > 0 ? (
+                paniclist.map((item) => {
+                  const pincode = item.addressOfInc.split(',').pop().trim();
+                  return (
+                    <TableRow key={item._id}>
+                      <TableCell align="center">{item.username}</TableCell>
+                      <TableCell align="center">
+                        <Link href={item.mapLct} target="_blank" rel="noopener noreferrer" underline="hover">
+                          View Map
+                        </Link>
+                      </TableCell>
+                      <TableCell align="center">{item.addressOfInc}</TableCell>
+                      <TableCell align="center">{pincode}</TableCell>
+                    </TableRow>
+                  );
+                })
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    No resolved reports found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </Box>
   );
 };
 
